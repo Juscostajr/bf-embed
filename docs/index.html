@@ -7,42 +7,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Before / After Slider</h1>
-
-  <p class="hint">Coloque suas imagens em <code>docs/images/</code> com os nomes <code>before.png</code> e <code>after.png</code>, ou use os controles abaixo para carregar imagens locais.</p>
-
-    <section class="viewer">
-      <div class="ba-slider" id="ba-slider" aria-label="Before after image slider">
-        <img src="images/before.png" alt="Before" id="img-before" class="ba-image" onerror="this.style.opacity=0">
+  <main class="minimal">
+    <div class="ba-embed" id="ba-embed" aria-label="Before/After image">
+      <div class="ba-slider" id="ba-slider">
+        <img src="images/before.png" alt="Before" id="img-before" class="ba-image">
         <div class="ba-overlay" id="overlay">
-          <img src="images/after.png" alt="After" id="img-after" class="ba-image" onerror="this.style.opacity=0">
+          <img src="images/after.png" alt="After" id="img-after" class="ba-image">
         </div>
         <div class="ba-handle" id="handle" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Ajustar antes e depois"></div>
       </div>
-
-      <label class="range">
-        <input type="range" id="range" min="0" max="100" value="50" aria-label="Slider antes e depois">
-      </label>
-
-      <div class="controls">
-        <div class="file">
-          <label>Before: <input type="file" id="file-before" accept="image/*"></label>
-        </div>
-        <div class="file">
-          <label>After: <input type="file" id="file-after" accept="image/*"></label>
-        </div>
-      </div>
-    </section>
-
-    <section class="notes">
-      <h2>Uso</h2>
-      <ul>
-        <li>Para publicar no GitHub Pages: ative Pages configurando a pasta <code>docs/</code> no branch principal (main/master).</li>
-  <li>Se quiser que as imagens apareçam automaticamente, coloque seus arquivos em <code>docs/images/before.png</code> e <code>docs/images/after.png</code>.</li>
-        <li>Também é possível carregar imagens locais usando os botões "Before" e "After".</li>
-      </ul>
-    </section>
+      <input type="range" id="range" min="0" max="100" value="50" class="sr-only" aria-hidden="true">
+    </div>
   </main>
 
   <script src="slider.js"></script>

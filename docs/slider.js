@@ -3,10 +3,6 @@
   const overlay = document.getElementById('overlay');
   const handle = document.getElementById('handle');
   const range = document.getElementById('range');
-  const fileBefore = document.getElementById('file-before');
-  const fileAfter = document.getElementById('file-after');
-  const imgBefore = document.getElementById('img-before');
-  const imgAfter = document.getElementById('img-after');
 
   let dragging = false;
 
@@ -14,7 +10,7 @@
     percent = Math.max(0, Math.min(100, percent));
     overlay.style.width = percent + '%';
     handle.style.left = percent + '%';
-    range.value = percent;
+    if(range) range.value = percent;
     handle.setAttribute('aria-valuenow', String(Math.round(percent)));
   }
 
@@ -32,30 +28,20 @@
   // Click on slider to move
   slider.addEventListener('click', e => { setPosition(getRelativePercent(e.clientX)); });
 
-  // Range input
-  range.addEventListener('input', e => { setPosition(Number(e.target.value)); });
+  // Range input (hidden but useful for accessibility)
+  if(range) range.addEventListener('input', e => { setPosition(Number(e.target.value)); });
 
   // Keyboard on handle
   handle.addEventListener('keydown', e => {
-    let v = Number(range.value);
+    const current = Number(range ? range.value : 50);
+    let v = current;
     if(e.key === 'ArrowLeft' || e.key === 'ArrowDown'){ v = v - 5; setPosition(v); e.preventDefault(); }
     if(e.key === 'ArrowRight' || e.key === 'ArrowUp'){ v = v + 5; setPosition(v); e.preventDefault(); }
     if(e.key === 'Home'){ setPosition(0); e.preventDefault(); }
     if(e.key === 'End'){ setPosition(100); e.preventDefault(); }
   });
 
-  // File loaders
-  function loadFileAsUrl(file, imgEl){
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => { imgEl.src = ev.target.result; imgEl.style.opacity = 1; };
-    reader.readAsDataURL(file);
-  }
-
-  fileBefore.addEventListener('change', e => { loadFileAsUrl(e.target.files[0], imgBefore); });
-  fileAfter.addEventListener('change', e => { loadFileAsUrl(e.target.files[0], imgAfter); });
-
-  // Initialize
+  // Initialize to middle
   setPosition(50);
 
 })();
