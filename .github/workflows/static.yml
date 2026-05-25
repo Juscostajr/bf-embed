@@ -28,11 +28,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      # Opt into Node.js 24 for JavaScript actions on the runner to avoid Node 20 deprecation issues
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        # If Pages is not yet enabled for this repository this attempts to enable it
+        with:
+          enablement: 'true'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
